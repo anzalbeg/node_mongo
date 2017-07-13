@@ -6,13 +6,14 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var passort = require('passport');
 var expressSession = require('express-session');
+var mongoose = require('mongoose');
 
 var index = require('./routes/index');
 require('./routes/model/dbconfig');
 //var userinfo = require('./routes/auth/user');
 
 var app = express();
-
+mongoose.Promise = global.Promise;
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

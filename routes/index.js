@@ -38,7 +38,7 @@ router.post('/register',(req,res,next) => {
 
 
 router.post('/login',(req,res,next) => {
-  passport.authenticate('signin',(err,user,info) => {
+  passport.authenticate('signin',(err, user, info) => {
     if(err){
       return next(err);
     }
@@ -48,8 +48,11 @@ router.post('/login',(req,res,next) => {
     }
     if(user){
       console.log('user login success');
-      res.send('user login success');
+      res.json({
+        user: user.user,
+        onlineUser: user.onlineUser
+      })
     }
-  });
+  })(req, res, next);
 });
 module.exports = router;
