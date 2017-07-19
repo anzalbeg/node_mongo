@@ -6,31 +6,40 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var passort = require('passport');
 var expressSession = require('express-session');
-
+var mongoose = require('mongoose');
 var index = require('./routes/index');
 require('./routes/model/dbconfig');
-//var userinfo = require('./routes/auth/user');
 
 var app = express();
 
-
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
+mongoose.Promise = global.Promise;
 
 // uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+// view engine setup
+app.set('index', __dirname + '/views');
+  // create a new Temaplting engine
+app.engine('html', require('ejs').renderFile);
+app.set('view engine','html');
+
 app.use(expressSession({secret:'mySecretKey'}));
 app.use(passort.initialize());
 app.use(passort.session());
 
-app.use('/api/user', index);
-//app.use('/api/user',userinfo);
+
+
+app.use('/', index);
+
+app.get('/',(req,res,next) => {
+  res.render('../views/index.html');
+});
+
+
+
 
 
 // catch 404 and forward to error handler
@@ -39,6 +48,7 @@ app.use(function(req, res, next) {
   err.status = 404;
   next(err);
 });
+
 
 // error handler
 app.use(function(err, req, res, next) {

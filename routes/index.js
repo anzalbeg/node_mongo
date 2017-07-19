@@ -2,18 +2,20 @@ var express = require('express');
 var router = express.Router();
 var db = require('./model/dbconfig').user;
 var passport = require('passport');
-require('./auth/user')
+require('./auth/user');
+
 /* GET home page. */
 
-router.get('/getalluser',(req,res,next) =>{
+
+router.get('/getalluser',(req,res,next) => {
   db.find({},(err,user) =>{
     if(err){
-        console.log('error occured ---',err)
+      console.log('error occured ---',err)
       res.send("error occured")
       throw err;
     }
     else{
-        console.log(user)
+      console.log(user)
       res.send(user);
     }
   });
@@ -43,13 +45,18 @@ router.post('/login',(req,res,next) => {
       return next(err);
     }
     if(!user){
-      console.log('user already exits');
-      res.send('user already exits');
+      console.log(info);
+      res.send(info);
     }
     if(user){
       console.log('user login success');
-      res.send('user login success');
+        // res.json({
+        //   user : user.currentuser,
+        //   result : user.loginuser
+        // });
+        res.render('../views/dashboard.html',{userinfo : user.currentuser.email})
     }
-  });
+  })(req,res,next);
 });
+
 module.exports = router;
