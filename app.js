@@ -7,12 +7,20 @@ var bodyParser = require('body-parser');
 var passort = require('passport');
 var expressSession = require('express-session');
 var mongoose = require('mongoose');
+
 var index = require('./routes/index');
 require('./routes/model/dbconfig');
 
 var app = express();
 
+
 mongoose.Promise = global.Promise;
+
+
+
+// view engine setup
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'jade');
 
 // uncomment after placing your favicon in /public
 app.use(logger('dev'));

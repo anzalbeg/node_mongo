@@ -28,6 +28,7 @@ passport.use('signup', new LocalStrategy({
                     }
                     else{
                         // for new user
+
                         db.create({'email':req.param('email'),'password':req.param('password'),'username':req.param('username'),'online':req.param('online')},(err,user) => {
                             if(err){
                                 console.log("Error in Creating the DB",err);
@@ -68,7 +69,6 @@ passport.use('signin',new LocalStrategy({
                     .then((user) => {db.find({'online':true})})
                     .then((result) =>{
                         return done(null,{currentuser:user,loginuser:result}, "Success login");
-
                     })
                     .catch((err) =>{
                         return done(true);

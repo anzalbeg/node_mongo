@@ -6,8 +6,16 @@
          <body>
             <h1>
                 <div id="userinfo" style="display:none"><%=userinfo%></div>
-                Hello Welcome Back
+                <div id="useremail" style="display:none"><%=useremail%></div>
+                Hello Welcome Back <%=userinfo%>
             </h1>
+            <div>
+                <h2> login User list </h2>
+                <div>
+                    <li id="userlist">
+                    </li>
+                </div>
+            </div>
         </body>
-        <script src="../javascripts/socket.js"></script>
+        <script src="../javascripts/clientsocket.js"></script>
     </html>

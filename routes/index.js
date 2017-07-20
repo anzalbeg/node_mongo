@@ -40,7 +40,7 @@ router.post('/register',(req,res,next) => {
 
 
 router.post('/login',(req,res,next) => {
-  passport.authenticate('signin',(err,user,info) => {
+  passport.authenticate('signin',{ session: true },(err, user, info) => {
     if(err){
       return next(err);
     }
@@ -54,7 +54,11 @@ router.post('/login',(req,res,next) => {
         //   user : user.currentuser,
         //   result : user.loginuser
         // });
-        res.render('../views/dashboard.html',{userinfo : user.currentuser.email})
+        res.render('../views/dashboard.html',
+          {
+            userinfo : user.currentuser.username,
+            useremail    : user.currentuser.email
+          })
     }
   })(req,res,next);
 });

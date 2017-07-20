@@ -29,7 +29,7 @@ var io = require('socket.io').listen(server);
 server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
-require('../routes/socket/onlinesocket.js')(io);
+require('../routes/socket/server_socket.js')(io);
 
 
 
